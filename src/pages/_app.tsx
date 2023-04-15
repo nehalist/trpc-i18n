@@ -1,6 +1,14 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import type {AppType} from 'next/app';
+import {trpc} from '../utils/trpc';
+import {I18nProvider} from '@/locales';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const MyApp: AppType = ({Component, pageProps}) => {
+  return <>
+    outside i18n provider
+    <I18nProvider locale={(pageProps as any).locale}>
+      <Component {...pageProps} />
+    </I18nProvider>
+  </>;
+};
+
+export default trpc.withTRPC(MyApp);
